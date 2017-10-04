@@ -5,7 +5,7 @@ using TechJobs.Models;
 
 namespace TechJobs.Data
 {
-    class JobData
+    class jobData
     {
         /**
          * A data store for Job objects
@@ -18,17 +18,17 @@ namespace TechJobs.Data
         public JobFieldData<CoreCompetency> CoreCompetencies { get; set; } = new JobFieldData<CoreCompetency>();
 
 
-        private JobData()
+        private jobData()
         {
             JobDataImporter.LoadData(this);
         }
 
-        private static JobData instance;
-        public static JobData GetInstance()
+        private static jobData instance;
+        public static jobData GetInstance()
         {
             if (instance == null)
             {
-                instance = new JobData();
+                instance = new jobData();
             }
 
             return instance;

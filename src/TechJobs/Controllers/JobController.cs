@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TechJobs.Data;
 using TechJobs.ViewModels;
+using TechJobs.Models;
+using System.Linq;
+using System.Collections.Generic;
+
 
 namespace TechJobs.Controllers
 {
@@ -8,19 +12,23 @@ namespace TechJobs.Controllers
     {
 
         // Our reference to the data store
-        private static JobData jobData;
+        private static jobData jobData;
+        private object job;
 
         static JobController()
         {
-            jobData = JobData.GetInstance();
+            jobData = jobData.GetInstance();
         }
 
         // The detail display for a given Job at URLs like /Job?id=17
         public IActionResult Index(int id)
         {
             // TODO #1 - get the Job with the given ID and pass it into the view
-
-            return View();
+            //select job where id equals job.ID
+           
+            Job someJob = jobData.Find(id);
+            return View("Index", someJob);
+   
         }
 
         public IActionResult New()
@@ -35,8 +43,24 @@ namespace TechJobs.Controllers
             // TODO #6 - Validate the ViewModel and if valid, create a 
             // new Job and add it to the JobData data store. Then
             // redirect to the Job detail (Index) action/view for the new Job.
+         if (ModelState.IsValid)
+         {
+                Job newJob = new Job
+                {
+                    Name = newJobViewModel.Name,
+                    Employer = jobData.Employers.Find(newJobViewModel.EmployerID), //possible query into the data using the id. I need id
+                    Location = jobData.Locations.Find(newJobViewModel.LocationID),
+                    CoreCompetency = jobData.CoreCompetencies.Find(newJobViewModel.CoreCompetencyID),
+                    PositionType = jobData.PositionTypes.Find(newJobViewModel.PositionTypeID),
+                };
 
-            return View(newJobViewModel);
+                jobData.Jobs.Add(newJob);
+
+                //REDIRECT
+                return Redirect(string.Format("/Job?={0}", newJob.ID));
+          }
+          //if model is not valid, go back to the new job form. 
+            return View("New", newJobViewModel);
         }
     }
 }

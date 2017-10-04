@@ -9,11 +9,11 @@ namespace TechJobs.Controllers
     {
 
         // Our reference to the data store
-        private static JobData jobData;
+        private static jobData jobData;
 
         static SearchController()
         {
-            jobData = JobData.GetInstance();
+            jobData = jobData.GetInstance();
         }
 
         // Display the search form

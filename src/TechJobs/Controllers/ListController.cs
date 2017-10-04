@@ -11,11 +11,11 @@ namespace TechJobs.Controllers
     {
 
         // Our reference to the data store
-        private static JobData jobData;
+        private static jobData jobData;
 
         static ListController ()
         {
-            jobData = JobData.GetInstance();
+            jobData = jobData.GetInstance();
         }
 
         // Lists options for browsing, by "column"

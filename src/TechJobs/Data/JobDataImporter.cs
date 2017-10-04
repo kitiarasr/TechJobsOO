@@ -12,7 +12,7 @@ namespace TechJobs.Data
         /**
          * Load and parse data from job_data.csv
          */
-        internal static void LoadData(JobData jobData)
+        internal static void LoadData(jobData jobData)
         {
 
             if (IsDataLoaded)
