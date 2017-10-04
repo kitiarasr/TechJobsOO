@@ -2,6 +2,7 @@
 
 <h1>@Model.Title</h1>
 
+<div asp-validation-summary="All" ></div>
 <form action="/Search/Results">
     <p>
         @foreach (var column in Model.Columns)
@@ -22,6 +23,7 @@
     <p>
         <label asp-for="Value"></label>
         <input asp-for="Value" />
+        <span asp-validation-for="Value"></span>
     </p>
 
     <input type="submit" value="Search" />
